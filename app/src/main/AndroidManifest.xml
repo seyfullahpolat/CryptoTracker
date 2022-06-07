@@ -26,7 +26,7 @@
             android:name=".feature.main.MainActivity"
             android:configChanges="orientation|screenSize|screenLayout|keyboardHidden"
             android:exported="true"
-            android:screenOrientation="fullSensor"
+            android:screenOrientation="nosensor"
             android:theme="@style/Theme.CryptoTracker.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
