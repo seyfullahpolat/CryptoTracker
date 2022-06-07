@@ -1,3 +1,24 @@
 <resources>
-    <string name="app_name">CryptoTracker</string>
+    <string name="action_ok">OK</string>
+
+    <!--General -->
+    <string name="general_connection_exception">Connection error</string>
+
+    <!--Info -->
+    <string name="info">info</string>
+    <string name="order_image">Order image</string>
+    <string name="record_not_found">Record not found</string>
+    <string name="internet_connection">Connection error</string>
+    <string name="channel_name">Crypto Tracker</string>
+    <string name="channel_description">Crypto tracker notifications</string>
+    <string name="label_history">History</string>
+    <string name="date">Date</string>
+    <string name="rates">Rates</string>
+    <string name="select_range_message">Select the range you want to track</string>
+    <string name="btn_action_save_and_track">Save and Track</string>
+    <string name="btn_action_history">History</string>
+    <string name="training_message">Updating your tracking coin rates</string>
+    <string name="notification_body_extension">\nout of your range</string>
+    <string name="btn_action_set_range">Set range</string>
+    <string name="range_empty_message">Range value is empty \nPlease set to range</string>
 </resources>

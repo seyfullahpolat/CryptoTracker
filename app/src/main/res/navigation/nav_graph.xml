@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/coinListFragment">
+
+    <fragment
+        android:id="@+id/coinListFragment"
+        android:name="com.example.cryptotracker.feature.main.coinlist.presentation.CoinListFragment"
+        android:label="Coin List"
+        tools:layout="@layout/fragment_coin_list" />
+
+    <fragment
+        android:id="@+id/coinHistoryFragment"
+        android:name="com.example.cryptotracker.feature.main.coinhistory.presentation.CoinHistoryListFragment"
+        android:label="{title}"
+        tools:layout="@layout/fragment_coin_list">
+        <argument
+            android:name="title"
+            app:argType="string" />
+
+        <argument
+            android:name="coin_id"
+            app:argType="string" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/infoBottomSheet"
+        android:name="com.example.cryptotracker.feature.bottomsheetinfo.InfoBottomSheetFragment"
+        android:label=""
+        tools:layout="@layout/info_bottom_sheet_fragment">
+        <argument
+            android:name="infoBottomSheetData"
+            app:argType="com.example.cryptotracker.feature.bottomsheetinfo.InfoBottomSheetData" />
+    </dialog>
+    <action
+        android:id="@+id/showInfoBottomSheet"
+        app:destination="@id/infoBottomSheet" />
+
+
+    <dialog
+        android:id="@+id/rateBottomSheet"
+        android:name="com.example.cryptotracker.feature.ratebottomsheet.RateBottomSheetFragment"
+        android:label=""
+        tools:layout="@layout/rate_bottom_sheet_fragment">
+        <argument
+            android:name="rateBottomSheetData"
+            app:argType="com.example.cryptotracker.feature.ratebottomsheet.RateBottomSheetData" />
+        <action
+            android:id="@+id/action_rate_to_history"
+            app:destination="@id/coinHistoryFragment" />
+    </dialog>
+    <action
+        android:id="@+id/showRateBottomSheet"
+        app:destination="@id/rateBottomSheet" />
+</navigation>

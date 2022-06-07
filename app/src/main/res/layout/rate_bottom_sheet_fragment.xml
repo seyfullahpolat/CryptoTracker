@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_bottom_sheet"
+    tools:context=".feature.ratebottomsheet.RateBottomSheetFragment">
+
+    <FrameLayout
+        android:id="@+id/root_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:behavior_hideable="false"
+        app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="true"
+            android:paddingHorizontal="@dimen/_16sdp"
+            android:paddingBottom="@dimen/_16sdp">
+
+            <TextView
+                android:id="@+id/coinsName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_20sdp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/currentRates"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_editor_absoluteX="16dp"
+                tools:text="Bitcoin" />
+
+            <TextView
+                android:id="@+id/currentRates"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_17sdp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@id/coinsName"
+                tools:text="30.000 USD" />
+
+            <TextView
+                android:id="@+id/info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:gravity="center"
+                android:text="@string/select_range_message"
+                android:textSize="@dimen/_14sdp"
+                app:layout_constraintTop_toBottomOf="@id/currentRates" />
+
+            <TextView
+                android:id="@+id/minRangeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/info"
+                tools:text="min" />
+
+            <TextView
+                android:id="@+id/maxRangeLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_32sdp"
+                android:fontFamily="sans-serif-medium"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/info"
+                tools:text="max" />
+
+            <com.google.android.material.slider.RangeSlider
+                android:id="@+id/rangeSlider"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintBottom_toTopOf="@+id/btnSaveAndTrack"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/maxRangeLabel" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSaveAndTrack"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginHorizontal="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginBottom="4dp"
+                android:text="@string/btn_action_save_and_track"
+                android:textAllCaps="false"
+                app:cornerRadius="@dimen/_24sdp"
+                app:layout_constraintBottom_toTopOf="@+id/btnCoinsHistory"
+                app:layout_constraintTop_toBottomOf="@id/rangeSlider"
+                tools:layout_editor_absoluteX="16dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCoinsHistory"
+                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_48sdp"
+                android:layout_marginHorizontal="@dimen/_32sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginBottom="@dimen/_24sdp"
+                android:text="@string/btn_action_history"
+                android:textAllCaps="false"
+                app:cornerRadius="@dimen/_24sdp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/btnSaveAndTrack" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </FrameLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,11 +1,27 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'dagger.hilt.android.plugin'
+    id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'androidx.navigation.safeargs.kotlin'
+    id 'jacoco'
+    id "org.jlleitschuh.gradle.ktlint"
 }
 
-android {
-    compileSdk 32
+apply from: "$project.rootDir/jacoco.gradle"
 
+android {
+    signingConfigs {
+        release {
+            storeFile file("$project.rootDir/keystore/prod_keystore")
+            storePassword 'CryptoTracker'
+            keyAlias 'CryptoTracker'
+            keyPassword 'CryptoTracker'
+        }
+    }
+
+    compileSdk 32
     defaultConfig {
         applicationId "com.example.cryptotracker"
         minSdk 21
@@ -13,12 +29,22 @@ android {
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "com.example.cryptotracker.HiltTestRunner"
     }
 
     buildTypes {
-        release {
+        debug {
+            debuggable true
+            testCoverageEnabled false
             minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            debuggable false
+            testCoverageEnabled false
+            minifyEnabled true
+            shrinkResources true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
@@ -29,15 +55,121 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+    buildFeatures {
+        viewBinding true
+    }
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            applicationIdSuffix '.dev'
+            versionCode 1
+            versionName '1.0.0'
+            buildConfigField "String", "SERVER_URL", '"https://api.coingecko.com/"'
+            dimension "default"
+            resValue "string", "app_name", "Track Test"
+            resConfigs 'tr'
+            signingConfig signingConfigs.debug
+        }
+
+        prod {
+            applicationIdSuffix '.live'
+            versionCode 1
+            versionName '1.0.0'
+            buildConfigField "String", "SERVER_URL", '"https://api.coingecko.com/"'
+            dimension "default"
+            resValue "string", "app_name", "Crypto Tracker"
+            resConfigs 'tr'
+            signingConfig signingConfigs.release
+        }
+    }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.8.0'
     implementation 'androidx.appcompat:appcompat:1.4.2'
     implementation 'com.google.android.material:material:1.6.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // Dependencies Injection
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$hiltVersion"
+    implementation "androidx.hilt:hilt-work:$hiltAndroidxVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltAndroidxVersion"
+
+    // Retrofit
+    implementation 'com.squareup.okhttp3:logging-interceptor:4.9.1'
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
+
+    // Lifecycle
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.4.1'
+    implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.4.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.4.1'
+    implementation 'androidx.fragment:fragment-ktx:1.4.1'
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutines"
+
+    // Navigation Component
+    implementation "androidx.navigation:navigation-fragment-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navVersion"
+    implementation "androidx.navigation:navigation-dynamic-features-fragment:$navVersion"
+
+    // Glide Image Loader
+    implementation "com.github.bumptech.glide:glide:$glideVersion"
+    kapt "com.github.bumptech.glide:compiler:$glideVersion"
+
+    // Room Db
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+
+    // WorkManager
+    implementation "androidx.work:work-runtime-ktx:$work_version"
+    implementation "androidx.work:work-gcm:$work_version"
+
+    // optional - Test helpers
+    androidTestImplementation "androidx.work:work-testing:$work_version"
+    implementation "androidx.work:work-multiprocess:$work_version"
+
+    // Testing
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    testImplementation 'org.mockito:mockito-inline:4.4.0'
+    testImplementation 'org.mockito:mockito-core:4.4.0'
+    testImplementation 'org.mockito.kotlin:mockito-kotlin:4.0.0'
+    androidTestImplementation 'org.mockito:mockito-android:4.4.0'
+
+
+    testImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+    testImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.9.0'
+
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutines"
+
+    testImplementation "com.google.truth:truth:1.1"
+
+    testImplementation "androidx.test.ext:junit-ktx:1.1.3"
+    testImplementation "androidx.test:rules:$androidXTestRulesVersion"
+    testImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
+
+    kaptTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
+
+    androidTestImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.arch.core:core-testing:2.1.0"
+    androidTestImplementation "androidx.test:core-ktx:$androidXTestCoreVersion"
+    androidTestImplementation "androidx.test.ext:junit-ktx:$androidXTestExtKotlinRunnerVersion"
+    androidTestImplementation "androidx.test:rules:$androidXTestRulesVersion"
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
+
 }
