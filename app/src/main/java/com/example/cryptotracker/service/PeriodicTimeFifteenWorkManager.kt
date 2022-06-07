@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit
  */
 
 @HiltWorker
-class PeriodicTimeFiveteenWorkManager @AssistedInject constructor(
+class PeriodicTimeFifteenWorkManager @AssistedInject constructor(
     @Assisted val appContext: Context,
     @Assisted workerParams: WorkerParameters
 ) : Worker(appContext, workerParams) {

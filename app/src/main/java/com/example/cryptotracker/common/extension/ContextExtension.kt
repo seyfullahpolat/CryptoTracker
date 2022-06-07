@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.work.PeriodicWorkRequestBuilder
 import androidx.work.WorkManager
 import com.example.cryptotracker.common.Variables
-import com.example.cryptotracker.service.PeriodicTimeFiveteenWorkManager
+import com.example.cryptotracker.service.PeriodicTimeFifteenWorkManager
 import java.util.concurrent.TimeUnit
 
 /**
@@ -18,15 +18,15 @@ fun Context.checkWorkerActive(workName: String) {
 }
 
 fun Context.startTracking() {
-    this.checkWorkerActive(Variables.PeriodicTimeFiveteenWorkManager)
+    this.checkWorkerActive(Variables.PeriodicTimeFifteenWorkManager)
     this.checkWorkerActive(Variables.SetTimeUnlessFiveWorkManager)
 
     val compareWorker =
-        PeriodicWorkRequestBuilder<PeriodicTimeFiveteenWorkManager>(
+        PeriodicWorkRequestBuilder<PeriodicTimeFifteenWorkManager>(
             1000,
             TimeUnit.MILLISECONDS
         )
-            .addTag(Variables.PeriodicTimeFiveteenWorkManager)
+            .addTag(Variables.PeriodicTimeFifteenWorkManager)
             .build()
     WorkManager.getInstance(this).enqueue(compareWorker)
 }

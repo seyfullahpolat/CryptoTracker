@@ -3,7 +3,7 @@ package com.example.cryptotracker.common
 object Variables {
     // GENERIC KEYS
     const val CHECK_RATE_ON_RANGE = "check_rate_on_range"
-    const val PeriodicTimeFiveteenWorkManager = "PeriodicTimeFiveteenWorkManager"
+    const val PeriodicTimeFifteenWorkManager = "PeriodicTimeFifteenWorkManager"
     const val SetTimeUnlessFiveWorkManager = "SetTimeUnlessFiveWorkManager"
     const val CURRENT_CURRENCY = "USD"
     const val EMPTY = ""
