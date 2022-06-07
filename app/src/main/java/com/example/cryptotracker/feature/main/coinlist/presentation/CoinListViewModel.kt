@@ -48,7 +48,7 @@ class CoinListViewModel @Inject constructor(
                             coinItem.key,
                             coinItem.value.map {
                                 CoinCurrency(
-                                    it.key,it.value
+                                    it.key, it.value
                                 )
                             }.first()
                         )

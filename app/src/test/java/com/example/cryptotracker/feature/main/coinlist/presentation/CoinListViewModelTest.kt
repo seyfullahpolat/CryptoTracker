@@ -97,9 +97,9 @@ class CoinListViewModelTest {
         // Given
         val errorResponse =
             "{\n" +
-                    "  \"type\": \"error\",\n" +
-                    "  \"message\": \"What you were looking for isn't here.\"\n" +
-                    "}"
+                "  \"type\": \"error\",\n" +
+                "  \"message\": \"What you were looking for isn't here.\"\n" +
+                "}"
         val errorResponseBody = errorResponse.toResponseBody("application/json".toMediaTypeOrNull())
         val mockResponse = Response.error<String>(404, errorResponseBody)
 

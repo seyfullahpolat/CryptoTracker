@@ -102,7 +102,7 @@ class CheckRateOnRangeWorker @AssistedInject constructor(
             data.key,
             data.value.map {
                 CoinCurrency(
-                    it.key,it.value
+                    it.key, it.value
                 )
             }.first()
         )
