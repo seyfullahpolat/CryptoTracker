@@ -36,7 +36,4 @@ It runs at 1,2,3... minute intervals.
 
 * The second workmanager is the PeriodicTimeFifteenWorkManager class.
 It resets the SetTimeUnlessFiveWorkManager worker each time this worker runs. In this way, every 15 seconds, five requests are made at intervals of 1,2,3,4,5 (15 total) minutes, respectively.
-
-I couldn't test Workmanager enough. I hope the method I tried is not bad :)
-
-I could also use the service to run in the background, but I thought that we would not get performance in terms of optimization of device resources. Another solution would be to fire from remote server with onesingle push notification
+ 
